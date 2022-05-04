@@ -1,0 +1,136 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://UI/HUD.gd" type="Script" id=1]
+[ext_resource path="res://UI/Menu.gd" type="Script" id=2]
+[ext_resource path="res://Assets/space_background.jpg" type="Texture" id=3]
+[ext_resource path="res://Asteroid/Asteroid_Container.gd" type="Script" id=4]
+[ext_resource path="res://Enemy/Enemy_Container.gd" type="Script" id=5]
+[ext_resource path="res://Player/Player_Container.gd" type="Script" id=6]
+[ext_resource path="res://Powerups/PowerUp_Container.gd" type="Script" id=8]
+
+[node name="Game" type="Node2D"]
+__meta__ = {
+"_editor_description_": "The root of the scene"
+}
+
+[node name="Background" type="Sprite" parent="."]
+light_mask = 0
+position = Vector2( 512.5, 300.5 )
+scale = Vector2( 1.06354, 1.10556 )
+texture = ExtResource( 3 )
+
+[node name="Player_Container" type="Node2D" parent="."]
+script = ExtResource( 6 )
+
+[node name="Asteroid_Container" type="Node2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="Effects" type="Node2D" parent="."]
+
+[node name="Enemy_Container" type="Node2D" parent="."]
+script = ExtResource( 5 )
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="UI"]
+margin_right = 1024.0
+margin_bottom = 600.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Score" type="Label" parent="UI/HUD"]
+margin_left = 16.0
+margin_top = 10.0
+margin_right = 56.0
+margin_bottom = 24.0
+text = "Score"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Time" type="Label" parent="UI/HUD"]
+margin_left = 950.0
+margin_top = 8.0
+margin_right = 990.0
+margin_bottom = 22.0
+text = "Time"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Lives" type="Label" parent="UI/HUD"]
+margin_left = 11.0
+margin_top = 577.0
+margin_right = 51.0
+margin_bottom = 591.0
+text = "Lives"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Level" type="Label" parent="UI/HUD"]
+margin_left = 948.0
+margin_top = 576.0
+margin_right = 988.0
+margin_bottom = 590.0
+text = "Level"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="Timer" parent="UI/HUD"]
+autostart = true
+
+[node name="Menu" type="Control" parent="UI"]
+pause_mode = 2
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ColorRect" type="ColorRect" parent="UI/Menu"]
+margin_right = 1023.0
+margin_bottom = 600.0
+color = Color( 0, 0, 0, 0.25098 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="UI/Menu"]
+margin_left = 447.0
+margin_top = 185.0
+margin_right = 535.0
+margin_bottom = 199.0
+text = "Game Paused"
+
+[node name="Restart" type="Button" parent="UI/Menu"]
+anchor_right = 0.734
+margin_left = 418.0
+margin_top = 213.0
+margin_right = 538.64
+margin_bottom = 263.0
+text = "Restart"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Quit" type="Button" parent="UI/Menu"]
+margin_left = 418.0
+margin_top = 276.0
+margin_right = 568.0
+margin_bottom = 326.0
+text = "Quit"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PowerUp_Container" type="Node2D" parent="."]
+script = ExtResource( 8 )
+
+[connection signal="timeout" from="UI/HUD/Timer" to="UI/HUD" method="_on_Timer_timeout"]
+[connection signal="pressed" from="UI/Menu/Restart" to="UI/Menu" method="_on_Restart_pressed"]
+[connection signal="pressed" from="UI/Menu/Quit" to="UI/Menu" method="_on_Quit_pressed"]
